@@ -25,7 +25,7 @@ public class LoginService {
 		
 		
 		
-		userList = userDao.getAllUser();
+		userList = userDao.getAllUsers();
 		
 		for(int i = 0; i < userList.size(); i++) {
 			if(username.equals(userList.get(i).getUsername()) && password.equals(userList.get(i).getPassword())) {

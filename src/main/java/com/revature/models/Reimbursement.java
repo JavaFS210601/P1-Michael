@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
@@ -37,9 +38,6 @@ public class Reimbursement {
 	
 	@Column(name = "reimb_description")
 	private String description;
-	
-	@Column(name = "reimb_receipt")
-	private byte[] reciept;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "ers_author_fk")
@@ -75,14 +73,13 @@ public class Reimbursement {
 
 
 	public Reimbursement(int id, int amount, LocalDateTime submitted, LocalDateTime resolved, String description,
-			byte[] reciept, Users author, Users resolver, ReimbursementStatus status, ReimbursementType type) {
+			Users author, Users resolver, ReimbursementStatus status, ReimbursementType type) {
 		super();
 		this.id = id;
 		this.amount = amount;
 		this.submitted = submitted;
 		this.resolved = resolved;
 		this.description = description;
-		this.reciept = reciept;
 		this.author = author;
 		this.resolver = resolver;
 		this.status = status;
@@ -94,18 +91,27 @@ public class Reimbursement {
 
 
 
-	public Reimbursement(int amount, LocalDateTime submitted, LocalDateTime resolved, String description,
-			byte[] reciept, Users author, Users resolver, ReimbursementStatus status, ReimbursementType type) {
+	public Reimbursement(int amount, LocalDateTime submitted, LocalDateTime resolved, String description, Users author,
+			Users resolver, ReimbursementStatus status, ReimbursementType type) {
 		super();
 		this.amount = amount;
 		this.submitted = submitted;
 		this.resolved = resolved;
 		this.description = description;
-		this.reciept = reciept;
 		this.author = author;
 		this.resolver = resolver;
 		this.status = status;
 		this.type = type;
+	}
+
+
+
+
+
+
+	public Reimbursement(int parseInt, Date date, Object object, String desc, Users user, Object object2,
+			ReimbursementStatus status2, ReimbursementType type2) {
+		// TODO Auto-generated constructor stub
 	}
 
 
@@ -116,8 +122,8 @@ public class Reimbursement {
 	@Override
 	public String toString() {
 		return "Reimbursement [id=" + id + ", amount=" + amount + ", submitted=" + submitted + ", resolved=" + resolved
-				+ ", description=" + description + ", reciept=" + Arrays.toString(reciept) + ", author=" + author
-				+ ", resolver=" + resolver + ", status=" + status + ", type=" + type + "]";
+				+ ", description=" + description + ", author=" + author + ", resolver=" + resolver + ", status="
+				+ status + ", type=" + type + "]";
 	}
 
 
@@ -127,12 +133,7 @@ public class Reimbursement {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + Arrays.hashCode(reciept);
-		result = prime * result
-				+ Objects.hash(amount, author, description, id, resolved, resolver, status, submitted, type);
-		return result;
+		return Objects.hash(amount, author, description, id, resolved, resolver, status, submitted, type);
 	}
 
 
@@ -151,9 +152,9 @@ public class Reimbursement {
 		Reimbursement other = (Reimbursement) obj;
 		return amount == other.amount && Objects.equals(author, other.author)
 				&& Objects.equals(description, other.description) && id == other.id
-				&& Arrays.equals(reciept, other.reciept) && Objects.equals(resolved, other.resolved)
-				&& Objects.equals(resolver, other.resolver) && Objects.equals(status, other.status)
-				&& Objects.equals(submitted, other.submitted) && Objects.equals(type, other.type);
+				&& Objects.equals(resolved, other.resolved) && Objects.equals(resolver, other.resolver)
+				&& Objects.equals(status, other.status) && Objects.equals(submitted, other.submitted)
+				&& Objects.equals(type, other.type);
 	}
 
 
@@ -251,24 +252,6 @@ public class Reimbursement {
 
 
 
-	public byte[] getReciept() {
-		return reciept;
-	}
-
-
-
-
-
-
-	public void setReciept(byte[] reciept) {
-		this.reciept = reciept;
-	}
-
-
-
-
-
-
 	public Users getAuthor() {
 		return author;
 	}
@@ -335,7 +318,12 @@ public class Reimbursement {
 	public void setType(ReimbursementType type) {
 		this.type = type;
 	}
-	
+
+
+
+
+
+
 	
 	
 }

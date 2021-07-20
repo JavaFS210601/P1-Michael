@@ -12,11 +12,11 @@ import com.revature.utils.HibernateUtil;
 public class UserDAO implements UserDAOInterface {
 
 	@Override
-	public void addUser(Users user) {
+	public void addUser(Users newUser) {
 		//Open a hibernate Session object so that we can connect to the database
 		Session ses = HibernateUtil.getSession(); //there is some parallels between ConnectionUtil.getConnection() in JDBC!
 		
-		ses.save(user); //use save method to insert into the data base it's a method for Insert fucntionality
+		ses.save(newUser); //use save method to insert into the data base it's a method for Insert fucntionality
 		
 		HibernateUtil.closeSession(); //Close our Session (not super necessary here, but good practice)
 		
@@ -37,27 +37,26 @@ public class UserDAO implements UserDAOInterface {
 //	}
 	
 	@Override
-	public Users getUser_Id(int user_id) {
+	public Users getUserById(int user_id) {
 		Session ses = HibernateUtil.getSession();
-		Users uID = ses.get(Users.class, user_id);
+		Users user = ses.get(Users.class, user_id);
 		HibernateUtil.closeSession();
-		return uID;
+		return user;
 	}
 
 	@Override
-	public boolean removeUser(int user_id) {
+	public void deleteUser(Users user) {
 		Session ses = HibernateUtil.getSession();
-		Users userGone = getUser_Id(user_id); 
 		
-			ses.delete(userGone);
-			HibernateUtil.closeSession();
-			return true;
+		ses.delete(user);
+		
+		HibernateUtil.closeSession();		
 		}
 
 
 
 	@Override
-	public List<Users> getAllUser() {
+	public List<Users> getAllUsers() {
 		Session ses = HibernateUtil.getSession();
 		
 		//Using HQL! Hibernate Query Language it references the Java class, not the DB table
@@ -72,5 +71,23 @@ public class UserDAO implements UserDAOInterface {
 		
 		return userList;
 		
+	}
+
+
+	@Override
+	public Users getUserByName(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<Users> getUsersByRole(int user_role_id) {
+		Session ses = HibernateUtil.getSession();
+		
+		List<Users> userList = ses.createQuery("from Users where user_role_id = " + user_role_id).list();
+		
+		HibernateUtil.closeSession();
+		return userList;
 	} 
 }

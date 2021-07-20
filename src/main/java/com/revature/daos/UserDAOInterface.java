@@ -10,9 +10,13 @@ public void addUser(Users user);
 	
 	//public void updateUser(User user);
 	
-	public Users getUser_Id(int user_id);
+	public Users getUserById(int user_id);
 	
-	public boolean removeUser(int user_id);
+	public void deleteUser(Users user);
 	
-	public List<Users> getAllUser();
+	public List<Users> getAllUsers();
+	
+	Users getUserByName(String username);
+	
+	public List<Users> getUsersByRole(int user_role_id);
 }

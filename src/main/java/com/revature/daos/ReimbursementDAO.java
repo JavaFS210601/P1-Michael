@@ -23,7 +23,7 @@ public class ReimbursementDAO implements ReimbursementDAOInterface{
 	}
 
 	@Override
-	public List<Reimbursement> selectReimByStatus() {
+	public List<Reimbursement> selectByStatus() {
 		Session ses = HibernateUtil.getSession();
 		
 		//used method from get all reimbursements
@@ -48,7 +48,7 @@ public class ReimbursementDAO implements ReimbursementDAOInterface{
 	}
 	
 	@Override
-    public boolean removeReim(int re_id) {
+    public boolean removeReimbursementById(int re_id) {
 		//get hibernate session
 		Session ses = HibernateUtil.getSession();
 		
@@ -67,8 +67,6 @@ public class ReimbursementDAO implements ReimbursementDAOInterface{
 		Session ses = HibernateUtil.getSession();
 		
 		
-		
-		
 		List<Reimbursement> allList = ses.createQuery("FROM Reimbursement").list(); 
 		
 		
@@ -76,5 +74,133 @@ public class ReimbursementDAO implements ReimbursementDAOInterface{
 		
         
 		return allList;
+	}
+
+	
+	@Override
+	public void createReimbursement(Reimbursement reimbursement) {
+		Session ses = HibernateUtil.getSession();
+		
+		ses.save(reimbursement);
+		
+		HibernateUtil.closeSession();
+		
+	}
+
+	@Override
+	public List<Reimbursement> getAllTickets() {
+		Session ses = HibernateUtil.getSession();
+		
+		List<Reimbursement> reimbursementList = ses.createQuery("from Reimbursement").list();
+		
+		HibernateUtil.closeSession();
+		
+		return reimbursementList;
+	}
+
+	@Override
+	public Reimbursement getReimbursementById(int id) {
+		Session ses = HibernateUtil.getSession();
+		
+		Reimbursement reimb = ses.get(Reimbursement.class, id);
+		
+		HibernateUtil.closeSession();
+		
+		return reimb;
+	}
+
+	@Override
+	public List<Reimbursement> getReimbursementByAuthor(int user_id) {
+		Session ses = HibernateUtil.getSession();
+		
+		List<Reimbursement> reimbList = ses.createQuery("from Reimbursement where " + user_id).list();
+		
+		HibernateUtil.closeSession();
+		
+		return reimbList;
+	}
+
+	@Override
+	public List<Reimbursement> getReimbursementByStatus(int status_id, int user_id) {
+		Session ses = HibernateUtil.getSession();
+		
+		List<Reimbursement> reimbList = ses.createQuery("from Reimbursement where " + status_id).list();
+		
+		HibernateUtil.closeSession();
+		
+		return reimbList;
+		
+	}
+
+	@Override
+	public List<Reimbursement> getReimbursementByAmount(int amount, boolean greater) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Reimbursement> getReimbursementByResolver(int user_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateReimbursement(Reimbursement reimbursement) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteReimbursement(Reimbursement reimbursement) {
+		Session ses = HibernateUtil.getSession();
+		
+		ses.delete(reimbursement);
+		
+		HibernateUtil.closeSession();
+		
+	}
+
+	@Override
+	public List<Reimbursement> getCompleteReimbursement(int status_id) {
+		Session ses = HibernateUtil.getSession();
+		
+		List<Reimbursement> reimbList = getAllTickets();
+		
+		List<Reimbursement> returnList = new ArrayList<>();
+		
+		for(Reimbursement r : reimbList)
+		{
+			//if the IDs are the same, ad the ticket to the return list
+			if(r.getStatus().getId() > 1)
+			{
+				returnList.add(r);
+			}
+		}
+		
+		HibernateUtil.closeSession();
+		
+		return returnList;
+	}
+
+	@Override
+	public List<Reimbursement> getPendingReimbursements(int status_id) {
+		Session ses = HibernateUtil.getSession();
+		
+		List<Reimbursement> reimbList = getAllTickets();
+		
+		List<Reimbursement> returnList = new ArrayList<>();
+		
+		for(Reimbursement r : reimbList)
+		{
+			//if the IDs are the same, ad the ticket to the return list
+			if(r.getStatus().getId() == 1)
+			{
+				returnList.add(r);
+			}
+		}
+		
+		HibernateUtil.closeSession();
+		
+		return returnList;
 	}
 }

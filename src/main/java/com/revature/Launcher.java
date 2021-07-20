@@ -71,23 +71,23 @@ public class Launcher {
 		ReimbursementType rt3 = new ReimbursementType("Travel");
 		ReimbursementType rt4 = new ReimbursementType("Other");
 		
-		rtDAO.addType(rt1);
-		rtDAO.addType(rt2);
-		rtDAO.addType(rt3);
-		rtDAO.addType(rt4);
+		rtDAO.insertType(rt1);
+		rtDAO.insertType(rt2);
+		rtDAO.insertType(rt3);
+		rtDAO.insertType(rt4);
 		
 		
 		ReimbursementStatus rs1 = new ReimbursementStatus("Pending");
 	ReimbursementStatus rs2 = new ReimbursementStatus("Approved");
 		ReimbursementStatus rs3 = new ReimbursementStatus("Denied");
 		
-		rsDAO.addStatus(rs1);
-		rsDAO.addStatus(rs2);
-		rsDAO.addStatus(rs3);
+		rsDAO.insertStatus(rs1);
+		rsDAO.insertStatus(rs2);
+		rsDAO.insertStatus(rs3);
 		
-		Reimbursement r1 = new Reimbursement(1, 200,  LocalDateTime.now(), LocalDateTime.now() , "Travel expenses to go to training in Georiga", "receipt".getBytes() , null , null, null, null);
-		Reimbursement r2 = new Reimbursement(2, 200,  LocalDateTime.now(), LocalDateTime.now() , "Hotel expenses to go to training in New York", "receipt".getBytes() , null , null, null, null);
-		Reimbursement r3 = new Reimbursement(3, 200, LocalDateTime.now(), LocalDateTime.now(), "Food expenses for fourth of July party" , "receipt".getBytes(), null, null, null, null);
+		Reimbursement r1 = new Reimbursement(1, 200,  LocalDateTime.now(), LocalDateTime.now() , "Travel expenses to go to training in Georiga",  null , null, null, null);
+		Reimbursement r2 = new Reimbursement(2, 200,  LocalDateTime.now(), LocalDateTime.now() , "Hotel expenses to go to training in New York", null , null, null, null);
+		Reimbursement r3 = new Reimbursement(3, 200, LocalDateTime.now(), LocalDateTime.now(), "Food expenses for fourth of July party" , null, null, null, null);
 		
 		rDAO.addReimbursement(r1);
 		rDAO.addReimbursement(r2);

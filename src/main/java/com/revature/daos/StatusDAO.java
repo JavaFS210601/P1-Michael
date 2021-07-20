@@ -1,33 +1,70 @@
 package com.revature.daos;
 
+import java.util.List;
+
 import org.hibernate.Session;
 
 import com.revature.models.ReimbursementStatus;
 import com.revature.utils.HibernateUtil;
 
-public class StatusDAO {
+public class StatusDAO implements StatusDAOInterface {
 
-	public void addStatus(ReimbursementStatus reimbursementstatus) {
-		//open a new hibernate session
-		Session ses = HibernateUtil.getSession();
-		
-		//this is to insert the new role into the table by using the save method
-		ses.save(reimbursementstatus);
-		
-		//now close the hibernate session
-		HibernateUtil.closeSession();
+	@Override
+	public ReimbursementStatus getStatus(int id) {
+		//open a new sesssion
+				Session ses = HibernateUtil.getSession();
+				//get the status code based on the id
+				ReimbursementStatus status = ses.get(ReimbursementStatus.class, id);
+				//close the session
+//				ses.close();
+				HibernateUtil.closeSession();
+				//return the status object
+				return status;
 	}
-		
-		//need a method to change or update the reimbursement status :) thanks Mark
-		public void updateReimb(ReimbursementStatus reimbursementstatus) {
-			//open a new hibernate session
-			Session ses = HibernateUtil.getSession();
-			
-			//this is to insert the new role into the table by using the save method
-			ses.merge(reimbursementstatus);
-			
-			//now close the hibernate session
-			HibernateUtil.closeSession();
 
-		}
+	@Override
+	public List<ReimbursementStatus> getAllStatus() {
+		//open a new session
+				Session ses = HibernateUtil.getSession();
+				//geta list of statuses
+				List<ReimbursementStatus> statusList = ses.createQuery("from ReimbursementStatus").list();
+				//close the session
+				HibernateUtil.closeSession();
+				//rethrn the list of statuses
+				return statusList;
+	}
+
+	@Override
+	public void insertStatus(ReimbursementStatus newStatus) {
+		//open a new session
+				Session ses = HibernateUtil.getSession();
+				//insert the new status into the table
+				ses.save(newStatus);
+				//close the session
+				HibernateUtil.closeSession();
+		
+	}
+
+	@Override
+	public void updateStatus(ReimbursementStatus status) {
+		//open a new session
+				Session ses = HibernateUtil.getSession();
+				//update the status in the table
+				ses.merge(status);
+				//close the session
+				HibernateUtil.closeSession();
+		
+	}
+
+	@Override
+	public void deleteStatus(ReimbursementStatus status) {
+		Session ses = HibernateUtil.getSession();
+		//update the status in the table
+		ses.delete(status);
+		//close the session
+		HibernateUtil.closeSession();
+		
+	}
+
+
 }
