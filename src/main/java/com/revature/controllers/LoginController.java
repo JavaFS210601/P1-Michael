@@ -2,6 +2,7 @@ package com.revature.controllers;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,60 +19,84 @@ import com.revature.utils.HibernateUtil;
 
 public class LoginController {
 	
-	//my object mapper and service provider
-		private ObjectMapper om = new ObjectMapper();
-		private LoginService ls = new LoginService();
+	
+	ObjectMapper om = new ObjectMapper(); //so we can work with JSON
+	private LoginService ls = new LoginService();
+	private ArrayList<Users> users = new ArrayList<Users>();
+	
+	public void login(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		
-		//method first reads JSON to a string 
-		//then proceeds to convert JSON to java String
-		//placing this parse string into my login Data Transfer Object
-		public void login(HttpServletRequest req, HttpServletResponse res) throws IOException {
-			if(req.getMethod().equals("POST")) {
-				//reads the request JSON string into a buffered reader
-				//in order to build a JAVA string out of JSON 
-				BufferedReader reader = req.getReader();
-				StringBuilder sb = new StringBuilder();
-				String line = reader.readLine();
+		if(req.getMethod().equals("POST")) { //making sure we actually got a POST request before executing. 
+			
+			//this process below is to get our JSON String
+			
+			BufferedReader reader = req.getReader(); //BufferedReader reads text from an input string (in our case JSON)
+			
+			StringBuilder sb = new StringBuilder(); //create an empty StringBuilder
+			
+			String line = reader.readLine(); //this will read the contents of the BufferedReader into a String
+			
+			while(line != null) { 
 				
-				//building the JAVA string line by line until null
-				while(line != null) {
-					sb.append(line);
-					line = reader.readLine();
-				}
+				sb.append(line); //add the contents of "line" to the StringBuilder
+				line = reader.readLine(); //assign line to the next line of data in the reader
 				
-				//passing the built JAVA string into a new string
-				String sBody = new String(sb);
-				
-				//mapping the JAVA string to the loginDTO object
-				LoginDTO lgDTO = om.readValue(sBody, LoginDTO.class);
-				
-				Users user = ls.login(lgDTO.getUsername(), lgDTO.getPassword());
-				
-				if(user != null) {
-					
-					Session role = HibernateUtil.getSession();
-					
-					UserRoles roles = ls.getRole(user, role);
-					
-					HttpSession loginSession = req.getSession();
-					
-					loginSession.setAttribute("user", lgDTO);
-					loginSession.setAttribute("valid", true);
-					loginSession.setAttribute("userType", roles.getRole());
-					String json = om.writeValueAsString(roles.getRole() + "," + user.getId());
-					
-					res.setStatus(200);
-					res.getWriter().print(json);
-				}
-				else {
-					HttpSession loginSession = req.getSession(false);
-					if(loginSession != null) {
-						loginSession.invalidate();
-					}
-					res.setStatus(401);
-					res.getWriter().print("Invalid Attempt to login");
-				}
+				//so for every line of data that received from the response, 
+				//we want to append it to the StringBuilder 
+				//So we get all this previously JSON into one StringBuilder object. Parsing JSON into Java!!
 			}
+			
+			//ObjectMapper only works with Strings... (not StringBuilders...)
+			String body = new String(sb); //so we make a new String to hold the StringBuilder content
+			
+			//Use the ObjectMapper to read our JSON username/password (which is now a Java String) 
+				//remember the readValue() method of ObjectMapper turns JSON into Java
+			//and put it into a LoginDTO class as fields
+			LoginDTO lDTO = om.readValue(body, LoginDTO.class); //we created a LoginDTO using the JSON-turned-Java
+			
+			
+			//control flow to determine what happens in the event of a successful/unsuccessful login--------
+			
+			if(ls.login(lDTO.getUsername(), lDTO.getPassword())) { //if the username/password sent to the service are valid...
+				
+				HttpSession ses = req.getSession(); //return a Session to hold user info (if one doesn't exist yet)
+				//remember, sessions are how you remember the different users on the client
+	
+
+//				
+//					Cookie[] cookies = req.getCookies();
+//					for (cookie : cookies) {
+//						info.log(cookie);
+//					}
+//				
+//				); //this is how I'd assume you can log cookies, getCookies returns an array
+				
+				//this info stays on the server, all the client gets is the request's cookie created by getSession()
+				//when a user gets a session, they get a cookie returned that uniquely identifies their session
+				ses.setAttribute("user", lDTO); //we'll probably just use a USer object if this was forreal
+				ses.setAttribute("loggedin", true);
+				
+		
+				res.setStatus(200); //because login was successful
+				res.getWriter().print("Hi Login was successful"); //we won't see this message anywhere but postman
+				
+			} else {
+				HttpSession ses = req.getSession(false); //this will only return a session if one is already active
+				
+				if(ses != null) { //if a session exists...
+					ses.invalidate(); //kill the session
+				}
+				
+				res.setStatus(401); //unauthorized
+				res.getWriter().print("Login Invalidated"); //we won't see this message anywhere but postman
+					
+			}
+			
 		}
+		
+	}
 
 }
+
+
+

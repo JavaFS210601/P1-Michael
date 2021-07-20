@@ -2,7 +2,9 @@ package com.revature.daos;
 
 import java.util.List;
 
+
 import org.hibernate.Session;
+
 
 import com.revature.models.Users;
 import com.revature.utils.HibernateUtil;
@@ -56,7 +58,19 @@ public class UserDAO implements UserDAOInterface {
 
 	@Override
 	public List<Users> getAllUser() {
-		// TODO Auto-generated method stub
-		return null;
+		Session ses = HibernateUtil.getSession();
+		
+		//Using HQL! Hibernate Query Language it references the Java class, not the DB table
+		//e.g. "Author" in our models package instead of "authors" in our DB
+		
+		List<Users> userList = ses.createQuery("FROM Users").list(); //at the end, we're turning the Query object into a List
+		
+		//warning is unimportant, it's complaining about conversion
+		//it wants a specific generic but it's not important. We could probably use casting to get rid of it
+		
+		HibernateUtil.closeSession();
+		
+		return userList;
+		
 	} 
 }

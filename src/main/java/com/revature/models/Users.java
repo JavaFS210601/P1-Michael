@@ -24,7 +24,7 @@ public class Users {
 	@Column(name = "ers_users_id")
 	private int id;
 	
-	@Column(name = "ers_username", unique = true, nullable = false)
+	@Column(name = "ers_username", nullable = false)
 	private String username;
 	
 	@Column(name = "ers_password", nullable = false)
@@ -36,7 +36,7 @@ public class Users {
 	@Column(name = "user_last_name", nullable = false)
 	private String lastName;
 	
-	@Column(name = "user_email", unique = true, nullable = false)
+	@Column(name = "user_email",  nullable = false)
 	private String email;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
