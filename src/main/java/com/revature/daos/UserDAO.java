@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-
+import com.revature.DTO.LoginDTO;
 import com.revature.models.Users;
 import com.revature.utils.HibernateUtil;
 
@@ -90,4 +90,30 @@ public class UserDAO implements UserDAOInterface {
 		HibernateUtil.closeSession();
 		return userList;
 	} 
+	
+	LoginDTO userCredentials = new LoginDTO();
+	
+	public boolean validateLogin(LoginDTO user) {
+		
+		Session session = HibernateUtil.getSession();
+
+		boolean correctCredentials = false;
+		
+		List<Users> userList = session.createQuery("FROM User").list(); 
+		
+			for (Users u : userList) {
+				
+				if(u.getUsername().equals(user.getUsername())) {
+					
+					u.getPassword();
+					
+					if (u.getPassword().equals(user.getPassword())) {
+						correctCredentials = true;
+						return correctCredentials;
+					}		
+				}	
+			}
+		HibernateUtil.closeSession();
+		return correctCredentials;
+	}
 }

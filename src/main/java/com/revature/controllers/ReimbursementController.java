@@ -33,10 +33,9 @@ public class ReimbursementController {
 	
 	public void getAllReimbursements(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
-		//response.getWriter().print("Hello :)");
-		//if(request.getMethod().equals("GET"))
+		
 		{
-			List<Reimbursement> reimbList = rs.getAllTickets();
+			List<Reimbursement> reimbList = rs.getAllReimbursements();
 			
 			String data = null;
 	
@@ -74,7 +73,7 @@ public class ReimbursementController {
 		
 	}
 
-	public void approveTicket(HttpServletRequest request, HttpServletResponse response) throws IOException 
+	public void approveReimbursement(HttpServletRequest request, HttpServletResponse response) throws IOException 
 	{
 		//make a buffered reader to read text from the input string
 				BufferedReader reader = request.getReader();
@@ -95,13 +94,13 @@ public class ReimbursementController {
 				ReimbursementDTO rDTO = om.readValue(body, ReimbursementDTO.class);
 				
 				//if the approval was successful...
-				if(rs.approveTicket(Integer.parseInt(rDTO.getreimbursementId())))
+				if(rs.approveReimbursement(Integer.parseInt(rDTO.getreimbursementId())))
 				{
 					response.setStatus(200);
 				}
 				else//approval was unsuccessful
 				{
-					response.setStatus(2023);
+					response.setStatus(424);
 				}
 				
 		
@@ -130,9 +129,11 @@ public class ReimbursementController {
 		ReimbursementType type = typeDao.getType(Integer.parseInt(rDTO.getType()));
 		Date date = new Date(Long.parseLong(rDTO.getDate()));
 		
+		
 		Reimbursement newReimbursement = new Reimbursement(Integer.parseInt(rDTO.getAmount()), date, null, rDTO.getDesc(), user, null, status, type);
 		
 		rDao.createReimbursement(newReimbursement);
 		
 	}
+
 }

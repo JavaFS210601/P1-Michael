@@ -88,7 +88,7 @@ public class ReimbursementDAO implements ReimbursementDAOInterface{
 	}
 
 	@Override
-	public List<Reimbursement> getAllTickets() {
+	public List<Reimbursement> getAllReimbursements() {
 		Session ses = HibernateUtil.getSession();
 		
 		List<Reimbursement> reimbursementList = ses.createQuery("from Reimbursement").list();
@@ -121,7 +121,7 @@ public class ReimbursementDAO implements ReimbursementDAOInterface{
 	}
 
 	@Override
-	public List<Reimbursement> getReimbursementByStatus(int status_id, int user_id) {
+	public List<Reimbursement> getReimbursementByStatus(int status_id) {
 		Session ses = HibernateUtil.getSession();
 		
 		List<Reimbursement> reimbList = ses.createQuery("from Reimbursement where " + status_id).list();
@@ -164,13 +164,13 @@ public class ReimbursementDAO implements ReimbursementDAOInterface{
 	public List<Reimbursement> getCompleteReimbursement(int status_id) {
 		Session ses = HibernateUtil.getSession();
 		
-		List<Reimbursement> reimbList = getAllTickets();
+		List<Reimbursement> reimbList = getAllReimbursements();
 		
 		List<Reimbursement> returnList = new ArrayList<>();
 		
 		for(Reimbursement r : reimbList)
 		{
-			//if the IDs are the same, ad the ticket to the return list
+			
 			if(r.getStatus().getId() > 1)
 			{
 				returnList.add(r);
@@ -186,13 +186,13 @@ public class ReimbursementDAO implements ReimbursementDAOInterface{
 	public List<Reimbursement> getPendingReimbursements(int status_id) {
 		Session ses = HibernateUtil.getSession();
 		
-		List<Reimbursement> reimbList = getAllTickets();
+		List<Reimbursement> reimbList = getAllReimbursements();
 		
 		List<Reimbursement> returnList = new ArrayList<>();
 		
 		for(Reimbursement r : reimbList)
 		{
-			//if the IDs are the same, ad the ticket to the return list
+		
 			if(r.getStatus().getId() == 1)
 			{
 				returnList.add(r);

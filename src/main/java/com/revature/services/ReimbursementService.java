@@ -12,42 +12,53 @@ public class ReimbursementService {
 	private static StatusDAO sDao = new StatusDAO();
 	private static ReimbursementDAO rDao = new ReimbursementDAO();
 	
-	public List<Reimbursement> getAllTickets()
+	public List<Reimbursement> getAllReimbursements()
 	{
 		return rDao.getReimbursements();
 	}
+	
+	public List<Reimbursement> getReimbursementById(){
+		return (List<Reimbursement>) rDao.getReimbursementById(1);
+	}
+	
 	
 	public List<Reimbursement> getCompletedReimbursements()
 	{
 		return rDao.getCompleteReimbursement(2);
 	}
 	
+	
 	public List<Reimbursement> getPendingReimbursements()
 	{
 		return rDao.getPendingReimbursements(1);
 	}
-	//returns true if the opperation was completed successfully
-	public boolean approveTicket(int id)
+	
+	
+	public boolean approveReimbursement(int id)
 	{
 		Reimbursement targetReimbursement = rDao.getReimbursementById(id);
 		boolean success = false;
-		//check if the ticket is approved or denied
+		//check if the reimbursement is approved or denied
 		if((targetReimbursement.getStatus().getId() == 2) || (targetReimbursement.getStatus().getId() == 3))
 		{
-			//ticket was already judged, do nothing to it
+			
 		}
-		else//ticket is awaiting decision
+		else
 		{
 			//get a status object of approval
 			ReimbursementStatus status = sDao.getStatus(2);
-			//set the ticket's status to approved
+			//set the reimb's status to approved
 			targetReimbursement.setStatus(status);
-			//push the ticket to the DB
+			//push the reimb to the database
 			rDao.updateReimbursement(targetReimbursement);
 			success = true;
 		}
 
 		
 		return success;
+	}
+	
+	public void addReimbursement(Reimbursement reimbursement) {
+		rDao.addReimbursement(reimbursement);
 	}
 }

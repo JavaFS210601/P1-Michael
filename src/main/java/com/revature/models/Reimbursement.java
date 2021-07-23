@@ -1,9 +1,11 @@
 package com.revature.models;
 
-import java.time.LocalDateTime;
 
 
-import java.util.Arrays;
+
+
+
+
 import java.util.Date;
 import java.util.Objects;
 
@@ -27,14 +29,14 @@ public class Reimbursement {
 	@Column(name = "reimb_id")
 	private int id;
 	
-	@Column(name = "reimb_amount", nullable = false)
+	@Column(name = "reimb_amount" )
 	private int amount;
 	
-	@Column(name = "reimb_submitted", nullable = false)
-	private LocalDateTime submitted;
+	@Column(name = "reimb_submitted")
+	private Date submitted;
 	
 	@Column(name = "reimb_resolved")
-	private LocalDateTime resolved;
+	private Date resolved;
 	
 	@Column(name = "reimb_description")
 	private String description;
@@ -72,8 +74,8 @@ public class Reimbursement {
 
 
 
-	public Reimbursement(int id, int amount, LocalDateTime submitted, LocalDateTime resolved, String description,
-			Users author, Users resolver, ReimbursementStatus status, ReimbursementType type) {
+	public Reimbursement(int id, int amount, Date submitted, Date resolved, String description, Users author,
+			Users resolver, ReimbursementStatus status, ReimbursementType type) {
 		super();
 		this.id = id;
 		this.amount = amount;
@@ -91,8 +93,8 @@ public class Reimbursement {
 
 
 
-	public Reimbursement(int amount, LocalDateTime submitted, LocalDateTime resolved, String description, Users author,
-			Users resolver, ReimbursementStatus status, ReimbursementType type) {
+	public Reimbursement(int amount, Date submitted, Date resolved, String description, Users author, Users resolver,
+			ReimbursementStatus status, ReimbursementType type) {
 		super();
 		this.amount = amount;
 		this.submitted = submitted;
@@ -102,16 +104,6 @@ public class Reimbursement {
 		this.resolver = resolver;
 		this.status = status;
 		this.type = type;
-	}
-
-
-
-
-
-
-	public Reimbursement(int parseInt, Date date, Object object, String desc, Users user, Object object2,
-			ReimbursementStatus status2, ReimbursementType type2) {
-		// TODO Auto-generated constructor stub
 	}
 
 
@@ -198,7 +190,7 @@ public class Reimbursement {
 
 
 
-	public LocalDateTime getSubmitted() {
+	public Date getSubmitted() {
 		return submitted;
 	}
 
@@ -207,7 +199,7 @@ public class Reimbursement {
 
 
 
-	public void setSubmitted(LocalDateTime submitted) {
+	public void setSubmitted(Date submitted) {
 		this.submitted = submitted;
 	}
 
@@ -216,7 +208,7 @@ public class Reimbursement {
 
 
 
-	public LocalDateTime getResolved() {
+	public Date getResolved() {
 		return resolved;
 	}
 
@@ -225,7 +217,7 @@ public class Reimbursement {
 
 
 
-	public void setResolved(LocalDateTime resolved) {
+	public void setResolved(Date resolved) {
 		this.resolved = resolved;
 	}
 
@@ -318,9 +310,6 @@ public class Reimbursement {
 	public void setType(ReimbursementType type) {
 		this.type = type;
 	}
-
-
-
 
 
 

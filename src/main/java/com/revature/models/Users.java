@@ -24,22 +24,22 @@ public class Users {
 	@Column(name = "ers_users_id")
 	private int id;
 	
-	@Column(name = "ers_username", nullable = false)
+	@Column(name = "ers_username")
 	private String username;
 	
-	@Column(name = "ers_password", nullable = false)
+	@Column(name = "ers_password")
 	private String password;
 	
-	@Column(name = "user_first_name", nullable = false)
+	@Column(name = "user_first_name")
 	private String firstName;
 	
-	@Column(name = "user_last_name", nullable = false)
+	@Column(name = "user_last_name")
 	private String lastName;
 	
-	@Column(name = "user_email",  nullable = false)
+	@Column(name = "user_email")
 	private String email;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ers_user_role_id")
 	private UserRoles roleId;
 

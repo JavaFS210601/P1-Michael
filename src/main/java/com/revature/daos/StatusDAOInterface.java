@@ -6,7 +6,7 @@ import com.revature.models.ReimbursementStatus;
 
 public interface StatusDAOInterface {
 
-	//get a status by it's ID
+		//get a status by it's ID
 		public ReimbursementStatus getStatus(int id);
 		//get all statuses
 		public List<ReimbursementStatus> getAllStatus();

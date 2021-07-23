@@ -30,7 +30,7 @@ public class StatusDAO implements StatusDAOInterface {
 				List<ReimbursementStatus> statusList = ses.createQuery("from ReimbursementStatus").list();
 				//close the session
 				HibernateUtil.closeSession();
-				//rethrn the list of statuses
+				//return the list of statuses
 				return statusList;
 	}
 

@@ -22,7 +22,7 @@ public class ReimbursementType {
 	@Column(name = "reimb_type_id")
 	private int id;
 	
-	@Column(name = "reimb_type", nullable = false)
+	@Column(name = "reimb_type")
 	private String type;
 	
 	

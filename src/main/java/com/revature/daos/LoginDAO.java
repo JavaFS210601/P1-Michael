@@ -1,6 +1,7 @@
 package com.revature.daos;
 
-import javax.persistence.Query;
+
+
 
 import org.hibernate.Session;
 
@@ -39,33 +40,5 @@ public class LoginDAO implements LoginDAOInterface {
 		
 		return role;
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	//System.out.println(username);
-//	System.out.println(password);
-//
-//	Query query =  session.createQuery("FROM Users as user WHERE user.username = :username AND user.password = :password");
-//	
-//	query.setParameter("username", username).setParameter("password", password);
-//	
-//	System.out.println(query);
-//	
-//	Users user = (Users) query.getSingleResult();
-//	
-//
-//	System.out.println(query);
 
 }

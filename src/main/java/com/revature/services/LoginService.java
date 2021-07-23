@@ -18,7 +18,28 @@ public class LoginService {
 	
 	UserDAO userDao = new UserDAO();
 	
-	public boolean login(String username, String password) {
+	public int login(String username, String password) {
+		
+		
+		 
+		
+		UserDAO allUsers = new UserDAO();
+		List<Users> checkLogin = allUsers.getAllUsers();
+		
+		for(Users test : checkLogin) {
+			
+			if(username.equals(test.getUsername()) && password.equals(test.getPassword())) {
+				
+				return test.getId();
+			}
+			
+			
+		}
+		
+		return -1;
+	}
+	
+	public boolean login2(String username, String password) {
 		
 		//get credentials from DAO
 		List<Users> userList = new ArrayList<>();

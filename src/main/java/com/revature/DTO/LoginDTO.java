@@ -2,8 +2,8 @@ package com.revature.DTO;
 
 public class LoginDTO {
 	
-	private String username;
-	private String password;
+	public String username;
+	public String password;
 	
 	
 	

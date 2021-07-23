@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Page</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"></head>
+<body>
+
+   
+
+    <div class="container" id="fullcontainer">
+        <div class="row">
+            <h1 class="col-lg-12 text-center" style="color:blue; padding-bottom:20px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Welcome, Employee!</h1>
+            <h2 class="col-lg-12 text-center" style="padding-bottom:20px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">You have successfully logged in!</h2>
+            <h2 class="col-lg-12 text-center" style="padding-bottom:20px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">This is your online portal where you can view your tickets, or submit a new one.</h2>
+
+            <div class="row">
+                <button type = "button" class = "btn btn-primary col-3 mx-auto" style = "margin-bottom: 20px;">View Previous Reimbursements</button>
+                <div class="row" id="table-row">
+                    <table class="table table-bordered" id="table1" style="display:none">
+                        <thead>
+                            <tr>
+                                <th>Amount</th>
+                                <th>Resolved</th>
+                                <th>Description</th>
+                                <th>Author</th>
+                                <th>Resolver</th>
+                                <th>Status</th>
+                                <th>Type</th>
+                                <th>ID</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody1"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <button type = "button" class = "btn btn-primary col-3 mx-auto" style = "margin-bottom: 20px;">View Pending Tickets</button>
+                <div class="row" id="table-row">
+                    <table class="table table-bordered" id="table2" style="display:none">
+                        <thead>
+                            <tr>
+                                <th>Amount</th>
+                                <th>Submitted</th>
+                                <th>Description</th>
+                                <th>Author</th>
+                                <th>Resolver</th>
+                                <th>Type</th>
+                                <th>ID</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody2"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <h3 class="text-center" style = " font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Submit a reimbursement request below</h3>
+            
+
+            <div class="d-grid gap-4 col-12 mx-auto justify-content-center">
+                <input class="text-center" type="text" id="type_id" placeholder="Type ID" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; border-color: blue"/>
+                <input class="text-center" type="number" id="amount" placeholder="Amount" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; border-color: blue"/>
+                <input class="text-center" type="text" id="description" placeholder="Description" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; border-color: blue"/>
+                <button type = "button" class = "btn btn-primary col-12 mx-auto justify-content-center" style = "margin-top: 1px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Submit Reimbursement</button>
+                <button id= "logoutButton" class="btn btn-danger">Logout</button>
+            </div>
+
+            <br>
+            <br>
+
+            <p id="submitMsg" style="display:none; box-shadow:darkslategray; font-style: italic;">Ticket Submitted!</p>
+            <p id="errorMsg" style="display:none; box-shadow:darkslategray; font-style: italic;">Failed! Check your inputs</p>
+        </div>
+
+
+<script src="employee.js"></script>
+</body>
+</html>

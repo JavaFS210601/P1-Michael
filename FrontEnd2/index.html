@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Home Page</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="container" id="fullcontainer" >
+        <div class="row" id="login-row">
+            <p id="errorMsg"></p>
+            <h1 class="col-lg-12 text-center " style="color:blue; padding-bottom:20px;">Welcome to Revature's Reimbursement Program</h1>
+            <h3 class="col-lg-12 text-center" style="color: blue; padding-bottom:20px;">Use your credentials to login to the program</h3>
+            <div class = "d-grid gap-4 col-4 mx-auto" style="padding-bottom:10px; margin-bottom: 10px;">
+            <input id="username" type="text" placeholder="username" style="border-color:blue">
+            <input id="password" type="password" placeholder="password" style="border-color: blue"> 
+            </div>
+
+            <div class="d-grid gap-4 col-12 mx-auto justify-content-center">
+                <button id= "loginButton" class="btn btn-primary">Login</button>
+                <button class="btn btn-success" type="button">Sign Up</button>
+                <button class="btn btn-danger" type="button">Forgot Password</button>
+            </div>          
+        </div>
+        </div>
+    </div>
+    <script src="login.js"></script>
+</body>
+</html>
